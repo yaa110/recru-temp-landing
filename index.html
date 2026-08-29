@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="enamad" content="26200342" />
+    <title>بزودی | پلتفرم هوشمند تحلیل با هوش مصنوعی</title>
+    
+    <!-- Vazirmatn Persian Font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #080B11;
+            --card-bg: rgba(17, 22, 34, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent-glow: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(8, 11, 17, 0) 70%);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Neon background glows for AI/Tech aesthetic */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            left: -100px;
+            background: var(--accent-glow);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            bottom: -200px;
+            right: -100px;
+            background: var(--accent-glow);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            padding: 24px;
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* Glassmorphism card container */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 48px 36px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Coming soon pulsing badge */
+        .badge-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 6px 16px;
+            border-radius: 999px;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #6366f1;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px #6366f1;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
+            }
+            100% {
+                transform: scale(0.9);
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+            }
+        }
+
+        .badge-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #818cf8;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            line-height: 1.4;
+            margin-bottom: 16px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .accent-text {
+            background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            font-weight: 300;
+        }
+
+        /* Email Form */
+        form {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            background: rgba(10, 15, 26, 0.6);
+            border: 1px solid var(--border-color);
+            padding: 16px 16px 16px 48px;
+            border-radius: 16px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: left;
+            direction: ltr; /* Fully LTR input field */
+        }
+
+        input[type="email"]::placeholder {
+            text-align: left;
+            direction: ltr;
+            color: #555e6d;
+        }
+
+        input[type="email"]:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+            background: rgba(10, 15, 26, 0.9);
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: #ffffff;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.3);
+            background: linear-gradient(135deg, #818cf8 0%, #5850ec 100%);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Success & Error Messages */
+        .message {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .message.success {
+            color: #10b981;
+        }
+
+        .message.error {
+            color: #ef4444;
+        }
+
+        /* SVG illustrations - Tech network pattern in card background */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 36px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #4b5563;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card" style="position: relative; overflow: hidden;">
+            <!-- Subtle Tech Background Matrix Lines -->
+            <svg class="bg-pattern" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0,20 L100,20 M0,50 L100,50 M0,80 L100,80 M20,0 L20,100 M50,0 L50,100 M80,0 L80,100" fill="none" stroke="#ffffff" stroke-width="0.1" />
+                <circle cx="20" cy="20" r="1" fill="#ffffff" />
+                <circle cx="50" cy="50" r="1" fill="#ffffff" />
+                <circle cx="80" cy="80" r="1" fill="#ffffff" />
+            </svg>
+
+            <!-- Pulse Coming Soon Badge -->
+            <div class="badge-container">
+                <span class="badge-dot"></span>
+                <span class="badge-text">به‌زودی</span>
+            </div>
+
+            <!-- Title -->
+            <h1>
+                <span class="accent-text">پلتفرم هوشمند تحلیل</span>
+                <br>با هوش مصنوعی
+            </h1>
+
+            <!-- Description -->
+            <p>
+                در حال آماده‌سازی پلتفرمی نوآورانه و هوشمند مبتنی بر پردازش زبان طبیعی و یادگیری عمیق جهت تحلیل پیشرفته و دقیق داده‌ها هستیم. جهت اطلاع از راه‌اندازی و دسترسی به نسخه عمومی، ایمیل خود را ثبت کنید.
+            </p>
+
+            <!-- Subscription Form -->
+            <form id="subscribe-form" onsubmit="handleSubscribe(event)">
+                <div class="input-group">
+                    <span class="input-icon">
+                        <!-- Inline SVG Email Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                    </span>
+                    <input type="email" id="email-input" required placeholder="email@example.com" autocomplete="email">
+                </div>
+                <button type="submit" id="submit-btn">
+                    <span>خبرم کن</span>
+                    <!-- Inline SVG Send Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Response messages -->
+            <div id="success-msg" class="message success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>ایمیل شما با موفقیت ثبت شد! به محض رونمایی اطلاع‌رسانی خواهیم کرد.</span>
+            </div>
+            <div id="error-msg" class="message error">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span>لطفاً یک آدرس ایمیل معتبر وارد کنید.</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p style="margin-bottom: 0; font-size: 0.75rem;">© ۲۰۲۶ تمامی حقوق مادی و معنوی محفوظ است.</p>
+        </footer>
+    </div>
+
+    <!-- Inline Form Handler JS -->
+    <script>
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('email-input');
+            const submitBtn = document.getElementById('submit-btn');
+            const successMsg = document.getElementById('success-msg');
+            const errorMsg = document.getElementById('error-msg');
+            const emailValue = emailInput.value.trim();
+
+            // Hide previous messages
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            // Simple client-side regex check
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailValue)) {
+                errorMsg.style.display = 'flex';
+                return;
+            }
+
+            // Fake submission - absolutely no logs or saves
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            submitBtn.querySelector('span').textContent = 'در حال ثبت...';
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.querySelector('span').textContent = 'خبرم کن';
+                successMsg.style.display = 'flex';
+                emailInput.value = '';
+            }, 800);
+        }
+    </script>
+</body>
+</html>
